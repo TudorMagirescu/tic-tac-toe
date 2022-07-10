@@ -22,3 +22,10 @@ void Board::printBoard(){
         std::cout << '\n';
     }
 }
+
+void Board::update(std::pair <int, int> move, Player currentPlayer){
+    int row = move.first;
+    int col = move.second;
+
+    board[row][col] = currentPlayer;
+}

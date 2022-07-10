@@ -1,3 +1,5 @@
+#include <utility>
+
 enum class Player{
     //Each board cell has one of the following states, depending on which player marked it.
     //X and Zero are the two players
@@ -14,4 +16,5 @@ class Board{
     public:
         Board();
         void printBoard();
+        void update(std::pair <int, int> move, Player currentPlayer);
 };

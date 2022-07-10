@@ -1,4 +1,5 @@
 #include "board.h"
+#include <utility>
 
 class Game{
     private:
@@ -6,5 +7,5 @@ class Game{
         Player currentPlayer;
     public:
         Game();
-        void printBoard();
+        void currentTurn();
 };

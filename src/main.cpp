@@ -4,7 +4,9 @@
 int main(){
     
     Game game;
-    game.printBoard();
+
+    game.currentTurn();
+    game.currentTurn();
 
     return 0;
 }

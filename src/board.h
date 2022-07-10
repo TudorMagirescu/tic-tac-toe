@@ -13,4 +13,5 @@ class Board{
         Player board[3][3];
     public:
         Board();
+        void printBoard();
 };

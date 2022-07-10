@@ -5,8 +5,8 @@ int main(){
     
     Game game;
 
-    game.currentTurn();
-    game.currentTurn();
+    game.newTurn();
+    game.newTurn();
 
     return 0;
 }

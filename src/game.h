@@ -1,11 +1,11 @@
 #include "board.h"
-#include <utility>
 
 class Game{
     private:
         Board gameBoard;
         Player currentPlayer;
+        void changePlayer();
     public:
         Game();
-        void currentTurn();
+        void newTurn();
 };

@@ -11,6 +11,8 @@ void Game::changePlayer(){
 Game::Game(){
     //initialise the currentPlayer to Player::X at the beginning of the game
     currentPlayer = Player::X;
+    //initialise the winner to Player::NA
+    winner = Player::NA;
 }
 
 std::pair <int, int> Game::readMove(){
@@ -62,6 +64,19 @@ void Game::newTurn(){
     //mark the move on the board
     gameBoard.update(move, currentPlayer);
 
+    //check if there is a winner of the game
+    //winner = Player::NA in case the game is ongoing
+    Player winner = gameBoard.getWinner();
+
+    if(winner != Player::NA){
+        this->winner = winner;
+        gameBoard.printBoard();
+    }
+
     //change the current player to prepare for the next turn
     changePlayer();
+}
+
+Player Game::getWinner(){
+    return this->winner;
 }

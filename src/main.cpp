@@ -5,9 +5,9 @@ int main(){
     
     Game game;
 
-    game.newTurn();
-    game.newTurn();
-    game.newTurn();
+    while(game.getWinner() == Player::NA){
+        game.newTurn();
+    }
 
     return 0;
 }

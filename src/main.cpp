@@ -7,6 +7,7 @@ int main(){
 
     game.newTurn();
     game.newTurn();
+    game.newTurn();
 
     return 0;
 }

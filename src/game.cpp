@@ -1,4 +1,5 @@
 #include "game.h"
+#include <iostream>
 
 void Game::changePlayer(){
     if(currentPlayer == Player::X)
@@ -12,6 +13,43 @@ Game::Game(){
     currentPlayer = Player::X;
 }
 
+std::pair <int, int> Game::readMove(){
+    //read the current player's move from the input
+    //the function checks for the move to be valid
+    //in case the move is invalid, the player is asked to input another move
+    bool playedValidMove = false;
+    int row, column;
+
+    while(playedValidMove == false){
+        //pretend the current move is valid
+        playedValidMove = true;
+
+        //read the user input
+        std::cin >> row >> column;
+
+        if(row < 0 || row > 2){
+            //the row is invalid
+            playedValidMove = false;
+        }
+
+        else if(column < 0 || column > 2){
+            //the column is invalid
+            playedValidMove = false;
+        }
+
+        else if(gameBoard.getPlayerAtPosition(std::make_pair(row, column)) != Player::NA){
+            //the cell is already occupied
+            playedValidMove = false;
+        }
+
+        if(playedValidMove == false){
+            std::cout << "The move is invalid. Please input another move!" << '\n';
+        }
+    }
+
+    return std::make_pair(row, column);
+}
+
 void Game::newTurn(){
     //current turn of the game
 
@@ -19,7 +57,7 @@ void Game::newTurn(){
     gameBoard.printBoard();
 
     //then the current player makes a move
-    std::pair <int, int> move = {0, 0};
+    std::pair <int, int> move = readMove();
 
     //mark the move on the board
     gameBoard.update(move, currentPlayer);

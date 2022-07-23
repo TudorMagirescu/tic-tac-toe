@@ -29,3 +29,10 @@ void Board::update(std::pair <int, int> move, Player currentPlayer){
 
     board[row][col] = currentPlayer;
 }
+
+Player Board::getPlayerAtPosition(std::pair <int, int> move){
+    int row = move.first;
+    int col = move.second;
+
+    return board[row][col];
+}

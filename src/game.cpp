@@ -28,7 +28,7 @@ std::pair <int, int> Game::readMove(){
     if(currentPlayer == Player::X)
         std::cout << "X";
     else
-        std::cout << "Zero";
+        std::cout << "O";
     std::cout << '\n';
 
     while(playedValidMove == false){

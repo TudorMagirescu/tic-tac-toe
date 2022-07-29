@@ -64,7 +64,7 @@ Player Board::getWinner(){
     if(board[0][0] == board[1][1] && board[1][1] == board[2][2] && board[0][0] != Player::NA)
         return board[0][0];
 
-    //check if the secondary diagonal is completed by a plyer
+    //check if the secondary diagonal is completed by a player
     if(board[0][2] == board[1][1] && board[1][1] == board[2][0] && board[0][2] != Player::NA)
         return board[0][2];
 

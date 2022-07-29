@@ -23,24 +23,41 @@ std::pair <int, int> Game::readMove(){
     bool playedValidMove = false;
     int row, column;
 
+    //output the current player
+    std::cout << "The current player is: ";
+    if(currentPlayer == Player::X)
+        std::cout << "X";
+    else
+        std::cout << "Zero";
+    std::cout << '\n';
+
     while(playedValidMove == false){
         //pretend the current move is valid
         playedValidMove = true;
 
-        //read the user input
-        std::cin >> row >> column;
+        //ask the user for the row
+        std::cout << "Row (input a number from 0 to 2): ";
+        
+        //read the user input (row)
+        std::cin >> row;
 
         if(row < 0 || row > 2){
             //the row is invalid
             playedValidMove = false;
         }
 
-        else if(column < 0 || column > 2){
+        //ask the user for the column
+        std::cout << "Column (input a number from 0 to 2): ";
+
+        //read the user input (column)
+        std::cin >> column;
+
+        if(column < 0 || column > 2){
             //the column is invalid
             playedValidMove = false;
         }
 
-        else if(gameBoard.getPlayerAtPosition(std::make_pair(row, column)) != Player::NA){
+        if(gameBoard.getPlayerAtPosition(std::make_pair(row, column)) != Player::NA){
             //the cell is already occupied
             playedValidMove = false;
         }

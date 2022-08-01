@@ -1,4 +1,3 @@
-#include <SFML/Graphics.hpp>
 #include <iostream>
 #include "game.h"
 #include "gamewindow.h"
@@ -8,6 +7,8 @@ int main(){
     gameWindow gameWindow;
     while(gameWindow.isOpen()){
         gameWindow.handleEvents();
+        if(gameWindow.getMouseClicked() == true)
+            std::cout << "The user clicked the mouse!" << '\n';
     }
 
     Game game;

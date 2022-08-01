@@ -27,3 +27,7 @@ void gameWindow :: handleEvents(){
     }
 
 }
+
+bool gameWindow :: getMouseClicked(){
+    return mouseClicked;
+}

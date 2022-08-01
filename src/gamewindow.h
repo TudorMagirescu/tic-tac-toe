@@ -7,4 +7,5 @@ struct gameWindow{
     public:
         bool isOpen();
         void handleEvents();
+        bool getMouseClicked();
 };

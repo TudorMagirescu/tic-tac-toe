@@ -31,3 +31,19 @@ void gameWindow :: handleEvents(){
 bool gameWindow :: getMouseClicked(){
     return mouseClicked;
 }
+
+void gameWindow :: clearWindow(sf::Color color){
+    window.clear(color);
+}
+
+void gameWindow :: drawRectangle(float width, float height, float position_x, float position_y){
+    //draws a rectangle of dimensions (width, height) 
+    //that has its upper left corner at position (position_x, position_y)
+    sf::RectangleShape rectangle(sf::Vector2f(width, height));
+    rectangle.setPosition(sf::Vector2f(position_x, position_y));
+    window.draw(rectangle);
+}
+
+void gameWindow :: display(){
+    window.display();
+}

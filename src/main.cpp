@@ -9,6 +9,10 @@ int main(){
         gameWindow.handleEvents();
         if(gameWindow.getMouseClicked() == true)
             std::cout << "The user clicked the mouse!" << '\n';
+        gameWindow.clearWindow(sf::Color::Green);
+        gameWindow.drawRectangle(3, 600, 100, 100);
+        gameWindow.display();
+
     }
 
     Game game;

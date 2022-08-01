@@ -8,4 +8,8 @@ struct gameWindow{
         bool isOpen();
         void handleEvents();
         bool getMouseClicked();
+
+        void clearWindow(sf::Color color);
+        void drawRectangle(float width, float height, float position_x, float position_y);
+        void display();
 };

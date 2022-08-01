@@ -5,15 +5,15 @@
 int main(){
 
     gameWindow gameWindow;
+
     while(gameWindow.isOpen()){
+        
         gameWindow.handleEvents();
         if(gameWindow.getMouseClicked() == true)
             std::cout << "The user clicked the mouse!" << '\n';
-            
+
         gameWindow.clearWindow(sf::Color::White);
-
         Graphics::drawGameBoard(gameWindow);
-
         gameWindow.display();
 
     }

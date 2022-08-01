@@ -1,9 +1,19 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "game.h"
+#include "gamewindow.h"
 
 int main(){
-    
+
+    gameWindow gameWindow;
+    while(gameWindow.window.isOpen()){
+        sf::Event event;
+        while(gameWindow.window.pollEvent(event)){
+            if(event.type == sf::Event::Closed)
+                gameWindow.window.close();
+        }
+    }
+
     Game game;
 
     while(game.getWinner() == Player::NA && game.getTurn() < 9){

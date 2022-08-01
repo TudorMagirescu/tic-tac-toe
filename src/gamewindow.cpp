@@ -25,7 +25,7 @@ void gameWindow :: handleEvents(){
         }
 
     }
-
+    
 }
 
 bool gameWindow :: getMouseClicked(){
@@ -41,6 +41,7 @@ void gameWindow :: drawRectangle(float width, float height, float position_x, fl
     //that has its upper left corner at position (position_x, position_y)
     sf::RectangleShape rectangle(sf::Vector2f(width, height));
     rectangle.setPosition(sf::Vector2f(position_x, position_y));
+    rectangle.setFillColor(sf::Color::Black);
     window.draw(rectangle);
 }
 

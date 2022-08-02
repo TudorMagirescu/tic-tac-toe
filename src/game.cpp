@@ -16,72 +16,52 @@ Game::Game(){
     turn = 0;
 }
 
-std::pair <int, int> Game::readMove(){
-    //read the current player's move from the input
-    //the function checks for the move to be valid
-    //in case the move is invalid, the player is asked to input another move
-    bool playedValidMove = false;
+std::pair <int, int> Game::processMove(int mouse_x, int mouse_y){
+    
+    //the function returns (-1, -1) if the move is invalid
+    //otherwise it returns the coordinates of the move
+
+    bool insideBoard = true;
     int row, column;
 
-    //output the current player
-    std::cout << "The current player is: ";
-    if(currentPlayer == Player::X)
-        std::cout << "X";
-    else
-        std::cout << "O";
-    std::cout << '\n';
-
-    while(playedValidMove == false){
-        //pretend the current move is valid
-        playedValidMove = true;
-
-        //ask the user for the row
-        std::cout << "Row (input a number from 0 to 2): ";
-        
-        //read the user input (row)
-        std::cin >> row;
-
-        if(row < 0 || row > 2){
-            //the row is invalid
-            playedValidMove = false;
-        }
-
-        //ask the user for the column
-        std::cout << "Column (input a number from 0 to 2): ";
-
-        //read the user input (column)
-        std::cin >> column;
-
-        if(column < 0 || column > 2){
-            //the column is invalid
-            playedValidMove = false;
-        }
-
-        if(gameBoard.getPlayerAtPosition(std::make_pair(row, column)) != Player::NA){
-            //the cell is already occupied
-            playedValidMove = false;
-        }
-
-        if(playedValidMove == false){
-            std::cout << "The move is invalid. Please input another move!" << '\n';
-        }
+    //get the column
+    if(mouse_x < BOARD_WIDTH / 8 || mouse_x > 7 * BOARD_WIDTH / 8){
+        //the move is outside the board
+        return {-1, -1};
     }
+    column = (mouse_x - BOARD_WIDTH / 8) / (BOARD_WIDTH / 4);
 
-    return std::make_pair(row, column);
+    //get the row
+    if(mouse_y < BOARD_HEIGHT / 8 || mouse_y > 7 * BOARD_HEIGHT / 8){
+        //the move is outside the board
+        return {-1, -1};
+    }
+    row = (mouse_y - BOARD_HEIGHT / 8) / (BOARD_HEIGHT / 4);
+
+    //if the cell is occupied the move is also invalid
+    if(gameBoard.getPlayerAtPosition({row, column}) != Player::NA)
+        return {-1, -1};
+
+    return {row, column};
+
 }
 
 void Game::newTurn(int mouse_x, int mouse_y){
-    //current turn of the game
-    turn++;
-
-    //we start by printing the board
-    gameBoard.printBoard();
 
     //then the current player makes a move
-    std::pair <int, int> move = readMove();
+    std::pair <int, int> move = processMove(mouse_x, mouse_y);
+
+    //check if the move is invalid
+    if(move.first == -1 && move.second == -1)
+        return;
+
+    turn++;
 
     //mark the move on the board
     gameBoard.update(move, currentPlayer);
+
+    //for debug
+    gameBoard.printBoard();
 
     //check if there is a winner of the game
     //winner = Player::NA in case the game is ongoing

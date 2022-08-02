@@ -18,6 +18,7 @@ class gameWindow{
     public:
 
         bool isOpen();
+        void close();
         void handleEvents();
 
         bool getMouseClicked();

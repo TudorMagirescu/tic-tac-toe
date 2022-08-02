@@ -30,6 +30,10 @@ void gameWindow :: handleEvents(){
     
 }
 
+void gameWindow :: close(){
+    window.close();
+}
+
 bool gameWindow :: getMouseClicked(){
     return mouseClicked;
 }

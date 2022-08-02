@@ -1,4 +1,5 @@
 #include "board.h"
+#include "constants.h"
 
 class Game{
     private:
@@ -7,7 +8,7 @@ class Game{
         Player winner;
         int turn;
         void changePlayer();
-        std::pair <int, int> readMove();
+        std::pair <int, int> processMove(int mouse_x, int mouse_y);
     public:
         Game();
         void newTurn(int mouse_x, int mouse_y);

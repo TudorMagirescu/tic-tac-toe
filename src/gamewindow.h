@@ -2,7 +2,9 @@
 
 class gameWindow{
     private:
-        sf::RenderWindow window{sf::VideoMode{800, 800}, "Tic-Tac-Toe"};
+        const unsigned int BOARD_WIDTH = 800;
+        const unsigned int BOARD_HEIGHT = 800;
+        sf::RenderWindow window{sf::VideoMode{BOARD_WIDTH, BOARD_HEIGHT}, "Tic-Tac-Toe"};
         bool mouseClicked;
     public:
         bool isOpen();
@@ -12,4 +14,6 @@ class gameWindow{
         void clearWindow(sf::Color color);
         void drawRectangle(float width, float height, float position_x, float position_y);
         void display();
+
+        void drawGameBoard();
 };

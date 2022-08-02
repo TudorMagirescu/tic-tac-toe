@@ -1,19 +1,26 @@
 #include <iostream>
 #include "game.h"
-#include "graphics.h"
+#include "gamewindow.h"
 
 int main(){
 
     gameWindow gameWindow;
 
     while(gameWindow.isOpen()){
-        
+
+        //process the current events
         gameWindow.handleEvents();
+
+        gameWindow.clearWindow(sf::Color::White);
+        gameWindow.drawGameBoard();
+        gameWindow.display();
+
+
         if(gameWindow.getMouseClicked() == true)
             std::cout << "The user clicked the mouse!" << '\n';
 
         gameWindow.clearWindow(sf::Color::White);
-        Graphics::drawGameBoard(gameWindow);
+        gameWindow.drawGameBoard();
         gameWindow.display();
 
     }

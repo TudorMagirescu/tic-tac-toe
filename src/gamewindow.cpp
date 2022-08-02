@@ -22,6 +22,8 @@ void gameWindow :: handleEvents(){
         //check if the user clicks
         if(currentEvent.type == sf::Event::MouseButtonPressed){
             mouseClicked = true;
+            mouse_x = currentEvent.mouseButton.x;
+            mouse_y = currentEvent.mouseButton.y;
         }
 
     }
@@ -30,6 +32,14 @@ void gameWindow :: handleEvents(){
 
 bool gameWindow :: getMouseClicked(){
     return mouseClicked;
+}
+
+int gameWindow :: getMouse_x(){
+    return mouse_x;
+}
+
+int gameWindow :: getMouse_y(){
+    return mouse_y;
 }
 
 void gameWindow :: clearWindow(sf::Color color){

@@ -10,7 +10,7 @@ class Game{
         std::pair <int, int> readMove();
     public:
         Game();
-        void newTurn();
+        void newTurn(int mouse_x, int mouse_y);
         Player getWinner();
         int getTurn();
 };

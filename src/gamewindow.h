@@ -1,12 +1,13 @@
 #include <SFML/Graphics.hpp>
+#include "constants.h"
 
 class gameWindow{
     private:
 
-        const unsigned int BOARD_WIDTH = 800;
-        const unsigned int BOARD_HEIGHT = 800;
         sf::RenderWindow window{sf::VideoMode{BOARD_WIDTH, BOARD_HEIGHT}, "Tic-Tac-Toe"};
         bool mouseClicked;
+        int mouse_x;
+        int mouse_y;
 
         void clearWindow(sf::Color color);
         void drawRectangle(float width, float height, float position_x, float position_y);
@@ -18,7 +19,10 @@ class gameWindow{
 
         bool isOpen();
         void handleEvents();
+
         bool getMouseClicked();
+        int getMouse_x();
+        int getMouse_y();
         
         void drawAll(sf::Color backgroundColor);
 };

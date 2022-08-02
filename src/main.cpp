@@ -5,19 +5,30 @@
 int main(){
 
     gameWindow gameWindow;
+    Game game;
 
     while(gameWindow.isOpen()){
+
+        //check if the game ended
+        if(game.getWinner() != Player::NA || game.getTurn() == 9){
+            std::cout << "Game ended!" << '\n';
+            //Work is required here
+        }
 
         //process the current events
         gameWindow.handleEvents();
 
+        //display the current state of the board
         gameWindow.drawAll(sf::Color::White);
 
-
-        if(gameWindow.getMouseClicked() == true)
+        //check if there is any new move
+        if(gameWindow.getMouseClicked() == true){
             std::cout << "The user clicked the mouse!" << '\n';
+            game.newTurn(gameWindow.getMouse_x(), gameWindow.getMouse_y());
+        }
 
     }
+    /*
 
     Game game;
 
@@ -36,6 +47,8 @@ int main(){
         else
             std::cout << "Zero wins!" << '\n';
     }
+
+    */
 
     return 0;
 }

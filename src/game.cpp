@@ -70,7 +70,7 @@ std::pair <int, int> Game::readMove(){
     return std::make_pair(row, column);
 }
 
-void Game::newTurn(){
+void Game::newTurn(int mouse_x, int mouse_y){
     //current turn of the game
     turn++;
 

@@ -81,3 +81,12 @@ void gameWindow :: drawGameBoard(){
     }
 
 }
+
+void gameWindow :: drawAll(sf::Color backgroundColor){
+    //the only public function of class gameWindow
+    //will take care of all of the drawing
+
+    clearWindow(backgroundColor);
+    drawGameBoard();
+    display();
+}

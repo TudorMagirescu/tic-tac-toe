@@ -11,17 +11,11 @@ int main(){
         //process the current events
         gameWindow.handleEvents();
 
-        gameWindow.clearWindow(sf::Color::White);
-        gameWindow.drawGameBoard();
-        gameWindow.display();
+        gameWindow.drawAll(sf::Color::White);
 
 
         if(gameWindow.getMouseClicked() == true)
             std::cout << "The user clicked the mouse!" << '\n';
-
-        gameWindow.clearWindow(sf::Color::White);
-        gameWindow.drawGameBoard();
-        gameWindow.display();
 
     }
 

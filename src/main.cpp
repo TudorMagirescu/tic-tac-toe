@@ -9,23 +9,25 @@ int main(){
 
     while(gameWindow.isOpen()){
 
-        //check if the game ended
-        if(game.getGameStatus() != gameStatus::ONGOING){
-            std::cout << "Game ended!" << '\n';
-
-            //Work is required here
-            gameWindow.close();
-        }
-
         //process the current events
         gameWindow.handleEvents();
 
-        //display the current state of the board
-        gameWindow.drawCurrentFrame(sf::Color::White, game.getGameBoard());
+        //check if the game ended
+        if(game.getGameStatus() != gameStatus::ONGOING){
+            gameWindow.drawCurrentFrame(sf::Color::White, game.getGameBoard());
+        }
 
-        //check if there is any new move
-        if(gameWindow.getMouseClicked() == true)
-            game.newTurn(gameWindow.getMouse_x(), gameWindow.getMouse_y());
+        else{
+
+            //display the current state of the board
+            gameWindow.drawCurrentFrame(sf::Color::White, game.getGameBoard());
+
+            //check if there is any new move
+            if(gameWindow.getMouseClicked() == true)
+                game.newTurn(gameWindow.getMouse_x(), gameWindow.getMouse_y());
+
+        }
+
 
     }
 

@@ -16,7 +16,6 @@ class Board{
         Player board[3][3];
     public:
         Board();
-        void printBoard();
         void update(std::pair <int, int> move, Player currentPlayer);
         Player getPlayerAtPosition(std::pair <int, int> move);
         Player getWinner();

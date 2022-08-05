@@ -10,7 +10,7 @@ int main(){
     while(gameWindow.isOpen()){
 
         //check if the game ended
-        if(game.getWinner() != Player::NA || game.getTurn() == 9){
+        if(game.getGameStatus() != gameStatus::ONGOING){
             std::cout << "Game ended!" << '\n';
 
             //Work is required here

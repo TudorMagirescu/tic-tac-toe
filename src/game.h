@@ -1,11 +1,21 @@
 #include "board.h"
 #include "constants.h"
 
+enum class gameStatus{
+    //the status of the game
+    
+    ONGOING,
+    X_WINS,
+    ZERO_WINS,
+    DRAW
+
+};
+
 class Game{
     private:
         Board gameBoard;
         Player currentPlayer;
-        Player winner;
+        gameStatus currentGameStatus;
         int turn;
 
         void changePlayer();
@@ -17,6 +27,6 @@ class Game{
         Board getGameBoard();
 
         void newTurn(int mouse_x, int mouse_y);
-        Player getWinner();
-        int getTurn();
+    
+        gameStatus getGameStatus();
 };

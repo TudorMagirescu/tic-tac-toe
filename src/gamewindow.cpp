@@ -46,10 +46,6 @@ int gameWindow :: getMouse_y(){
     return mouse_y;
 }
 
-void gameWindow :: clearWindow(sf::Color color){
-    window.clear(color);
-}
-
 void gameWindow :: drawLine(sf::Vector2f point0, sf::Vector2f point1, sf::Color lineColor){
     //draws a line from point0 to point1
     //its color will be lineColor
@@ -61,10 +57,6 @@ void gameWindow :: drawLine(sf::Vector2f point0, sf::Vector2f point1, sf::Color 
     line[0].color = line[1].color = lineColor;
 
     window.draw(line);
-}
-
-void gameWindow :: display(){
-    window.display();
 }
 
 void gameWindow :: drawGameBoard(sf::Color color){ 
@@ -154,7 +146,8 @@ void gameWindow :: drawCurrentFrame(sf::Color backgroundColor, Board gameBoard){
     //the only public function of class gameWindow
     //will take care of all of the drawing
 
-    clearWindow(backgroundColor);
+    window.clear(backgroundColor);
+
     drawGameBoard(sf::Color::Black);
     
     //draw the Xs and Os
@@ -170,5 +163,6 @@ void gameWindow :: drawCurrentFrame(sf::Color backgroundColor, Board gameBoard){
                 drawX(row, column, sf::Color::Blue);
         }
 
-    display();
+    window.display();
+
 }

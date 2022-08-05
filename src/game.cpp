@@ -12,8 +12,8 @@ Game::Game(){
     //initialise the currentPlayer to Player::X at the beginning of the game
     currentPlayer = Player::X;
 
-    winner = Player::NA;
     turn = 0;
+    currentGameStatus = gameStatus::ONGOING;
 }
 
 Board Game::getGameBoard(){
@@ -68,17 +68,25 @@ void Game::newTurn(int mouse_x, int mouse_y){
     //winner = Player::NA in case the game is ongoing
     Player winner = gameBoard.getWinner();
 
-    if(winner != Player::NA)
-        this->winner = winner;
+    if(turn == 9){
+        //draw
+        currentGameStatus = gameStatus::DRAW;
+    }
+
+    if(winner == Player::X){
+        //x wins
+        currentGameStatus = gameStatus::X_WINS;
+    }
+
+    if(winner == Player::Zero){
+        //O wins
+        currentGameStatus = gameStatus::ZERO_WINS;
+    }
 
     //change the current player to prepare for the next turn
     changePlayer();
 }
 
-Player Game::getWinner(){
-    return this->winner;
-}
-
-int Game::getTurn(){
-    return this->turn;
+gameStatus Game::getGameStatus(){
+    return currentGameStatus;
 }

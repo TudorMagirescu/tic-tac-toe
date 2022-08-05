@@ -107,13 +107,13 @@ void gameWindow :: drawX(int row, int column){
     //use the PADDING variable to indicate the white space between the X and the borders of the cell
 
     //upper left point
-    float line0_point0_x = BOARD_WIDTH / 8 + column * BOARD_WIDTH / 4 + PADDING;
-    float line0_point0_y = BOARD_HEIGHT / 8 + row * BOARD_HEIGHT / 4 + PADDING;
+    float line0_point0_x = BOARD_WIDTH / 8 + column * BOARD_WIDTH / 4 + X_PADDING;
+    float line0_point0_y = BOARD_HEIGHT / 8 + row * BOARD_HEIGHT / 4 + X_PADDING;
     sf::Vector2f line0_point0(line0_point0_x, line0_point0_y);
 
     //lower right point
-    float line0_point1_x = line0_point0_x + BOARD_WIDTH / 4 - 2 * PADDING;
-    float line0_point1_y = line0_point0_y + BOARD_HEIGHT / 4 - 2 * PADDING;
+    float line0_point1_x = line0_point0_x + BOARD_WIDTH / 4 - 2 * X_PADDING;
+    float line0_point1_y = line0_point0_y + BOARD_HEIGHT / 4 - 2 * X_PADDING;
     sf::Vector2f line0_point1(line0_point1_x, line0_point1_y);
 
     drawLine(line0_point0, line0_point1, sf::Color::Blue);
@@ -135,6 +135,19 @@ void gameWindow :: drawX(int row, int column){
 void gameWindow :: drawO(int row, int column){
     //draws at O at position (row, column)
 
+    //the position will be the upper left corner of the square in which the circle is inscribed
+    float position_x = BOARD_WIDTH / 8 + row * BOARD_WIDTH / 4 + ZERO_PADDING;
+    float position_y = BOARD_HEIGHT / 8 + column * BOARD_HEIGHT / 4 + ZERO_PADDING;
+
+    float radius = (CELL_WIDTH - 2 * ZERO_PADDING) / 2;
+
+    sf::CircleShape zero(radius);
+    zero.setPosition(sf::Vector2f(position_x, position_y));
+    zero.setOutlineColor(sf::Color::Red);
+    zero.setOutlineThickness(1);
+
+    window.draw(zero);
+
 }
 
 void gameWindow :: drawAll(sf::Color backgroundColor){
@@ -145,5 +158,7 @@ void gameWindow :: drawAll(sf::Color backgroundColor){
     drawGameBoard();
     //debug drawX
     drawX(2, 2);
+    //debug drawO
+    drawO(2, 1);
     display();
 }

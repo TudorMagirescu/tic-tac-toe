@@ -64,17 +64,12 @@ void Game::newTurn(int mouse_x, int mouse_y){
     //mark the move on the board
     gameBoard.update(move, currentPlayer);
 
-    //for debug
-    gameBoard.printBoard();
-
     //check if there is a winner of the game
     //winner = Player::NA in case the game is ongoing
     Player winner = gameBoard.getWinner();
 
-    if(winner != Player::NA){
+    if(winner != Player::NA)
         this->winner = winner;
-        gameBoard.printBoard();
-    }
 
     //change the current player to prepare for the next turn
     changePlayer();

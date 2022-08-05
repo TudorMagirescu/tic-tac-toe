@@ -7,8 +7,10 @@ class Game{
         Player currentPlayer;
         Player winner;
         int turn;
+
         void changePlayer();
         std::pair <int, int> processMove(int mouse_x, int mouse_y);
+        
     public:
         Game();
 

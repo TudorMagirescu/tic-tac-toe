@@ -12,6 +12,7 @@ int main(){
         //check if the game ended
         if(game.getWinner() != Player::NA || game.getTurn() == 9){
             std::cout << "Game ended!" << '\n';
+
             //Work is required here
             gameWindow.close();
         }
@@ -23,10 +24,8 @@ int main(){
         gameWindow.drawCurrentFrame(sf::Color::White, game.getGameBoard());
 
         //check if there is any new move
-        if(gameWindow.getMouseClicked() == true){
-            std::cout << "The user clicked the mouse!" << '\n';
+        if(gameWindow.getMouseClicked() == true)
             game.newTurn(gameWindow.getMouse_x(), gameWindow.getMouse_y());
-        }
 
     }
 

@@ -11,6 +11,8 @@ class gameWindow{
 
         void clearWindow(sf::Color color);
         void drawLine(sf::Vector2f point0, sf::Vector2f point1, sf::Color lineColor);
+        void drawX(int row, int column);
+        void drawO(int row, int column);
         void display();
 
         void drawGameBoard();

@@ -101,11 +101,49 @@ void gameWindow :: drawGameBoard(){
     }
 }
 
+void gameWindow :: drawX(int row, int column){
+
+    //draws an X at position (row, column)
+    //use the PADDING variable to indicate the white space between the X and the borders of the cell
+
+    //upper left point
+    float line0_point0_x = BOARD_WIDTH / 8 + column * BOARD_WIDTH / 4 + PADDING;
+    float line0_point0_y = BOARD_HEIGHT / 8 + row * BOARD_HEIGHT / 4 + PADDING;
+    sf::Vector2f line0_point0(line0_point0_x, line0_point0_y);
+
+    //lower right point
+    float line0_point1_x = line0_point0_x + BOARD_WIDTH / 4 - 2 * PADDING;
+    float line0_point1_y = line0_point0_y + BOARD_HEIGHT / 4 - 2 * PADDING;
+    sf::Vector2f line0_point1(line0_point1_x, line0_point1_y);
+
+    drawLine(line0_point0, line0_point1, sf::Color::Blue);
+
+    //upper right point
+    float line1_point0_x = line0_point1_x;
+    float line1_point0_y = line0_point0_y;
+    sf::Vector2f line1_point0(line1_point0_x, line1_point0_y);
+
+    //lower right point
+    float line1_point1_x = line0_point0_x;
+    float line1_point1_y = line0_point1_y;
+    sf::Vector2f line1_point1(line1_point1_x, line1_point1_y);
+
+    drawLine(line1_point0, line1_point1, sf::Color::Blue);
+
+}
+
+void gameWindow :: drawO(int row, int column){
+    //draws at O at position (row, column)
+
+}
+
 void gameWindow :: drawAll(sf::Color backgroundColor){
     //the only public function of class gameWindow
     //will take care of all of the drawing
 
     clearWindow(backgroundColor);
     drawGameBoard();
+    //debug drawX
+    drawX(2, 2);
     display();
 }

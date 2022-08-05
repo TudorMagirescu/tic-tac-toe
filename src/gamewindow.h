@@ -10,7 +10,7 @@ class gameWindow{
         int mouse_y;
 
         void clearWindow(sf::Color color);
-        void drawRectangle(float width, float height, float position_x, float position_y);
+        void drawLine(sf::Vector2f point0, sf::Vector2f point1, sf::Color lineColor);
         void display();
 
         void drawGameBoard();
@@ -26,4 +26,5 @@ class gameWindow{
         int getMouse_y();
         
         void drawAll(sf::Color backgroundColor);
+    
 };

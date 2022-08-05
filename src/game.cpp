@@ -68,17 +68,17 @@ void Game::newTurn(int mouse_x, int mouse_y){
     //winner = Player::NA in case the game is ongoing
     Player winner = gameBoard.getWinner();
 
-    if(turn == 9){
+    if(winner == Player::NA && turn == 9){
         //draw
         currentGameStatus = gameStatus::DRAW;
     }
 
-    if(winner == Player::X){
+    else if(winner == Player::X){
         //x wins
         currentGameStatus = gameStatus::X_WINS;
     }
 
-    if(winner == Player::Zero){
+    else if(winner == Player::Zero){
         //O wins
         currentGameStatus = gameStatus::ZERO_WINS;
     }

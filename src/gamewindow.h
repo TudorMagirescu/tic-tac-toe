@@ -5,7 +5,7 @@
 class gameWindow{
     private:
 
-        sf::RenderWindow window{sf::VideoMode{BOARD_WIDTH, BOARD_HEIGHT}, "Tic-Tac-Toe"};
+        sf::RenderWindow window{sf::VideoMode(BOARD_WIDTH, BOARD_HEIGHT), "Tic-Tac-Toe", sf::Style::Close};
         bool mouseClicked;
         int mouse_x;
         int mouse_y;

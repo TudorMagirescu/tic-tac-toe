@@ -136,8 +136,8 @@ void gameWindow :: drawO(int row, int column, sf::Color color){
     //draws at O at position (row, column)
 
     //the position will be the upper left corner of the square in which the circle is inscribed
-    float position_x = BOARD_WIDTH / 8 + row * BOARD_WIDTH / 4 + ZERO_PADDING;
-    float position_y = BOARD_HEIGHT / 8 + column * BOARD_HEIGHT / 4 + ZERO_PADDING;
+    float position_x = BOARD_WIDTH / 8 + column * BOARD_WIDTH / 4 + ZERO_PADDING;
+    float position_y = BOARD_HEIGHT / 8 + row * BOARD_HEIGHT / 4 + ZERO_PADDING;
 
     float radius = (CELL_WIDTH - 2 * ZERO_PADDING) / 2;
 
@@ -150,15 +150,25 @@ void gameWindow :: drawO(int row, int column, sf::Color color){
 
 }
 
-void gameWindow :: drawAll(sf::Color backgroundColor){
+void gameWindow :: drawCurrentFrame(sf::Color backgroundColor, Board gameBoard){
     //the only public function of class gameWindow
     //will take care of all of the drawing
 
     clearWindow(backgroundColor);
     drawGameBoard(sf::Color::Black);
-    //debug drawX
-    drawX(2, 2, sf::Color::Blue);
-    //debug drawO
-    drawO(2, 1, sf::Color::Red);
+    
+    //draw the Xs and Os
+    for(int row=0; row<3; row++)
+        for(int column=0; column<3; column++){
+
+            Player playerAtCurrentPosition = gameBoard.getPlayerAtPosition({row, column});
+
+            if(playerAtCurrentPosition == Player::Zero)
+                drawO(row, column, sf::Color::Red);
+
+            else if(playerAtCurrentPosition == Player::X)
+                drawX(row, column, sf::Color::Blue);
+        }
+
     display();
 }

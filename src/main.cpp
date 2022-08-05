@@ -20,7 +20,7 @@ int main(){
         gameWindow.handleEvents();
 
         //display the current state of the board
-        gameWindow.drawAll(sf::Color::White);
+        gameWindow.drawCurrentFrame(sf::Color::White, game.getGameBoard());
 
         //check if there is any new move
         if(gameWindow.getMouseClicked() == true){

@@ -11,6 +11,9 @@ class Game{
         std::pair <int, int> processMove(int mouse_x, int mouse_y);
     public:
         Game();
+
+        Board getGameBoard();
+
         void newTurn(int mouse_x, int mouse_y);
         Player getWinner();
         int getTurn();

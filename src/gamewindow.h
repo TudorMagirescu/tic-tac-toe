@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include "constants.h"
+#include "board.h"
 
 class gameWindow{
     private:
@@ -28,6 +29,6 @@ class gameWindow{
         int getMouse_x();
         int getMouse_y();
         
-        void drawAll(sf::Color backgroundColor);
+        void drawCurrentFrame(sf::Color backgroundColor, Board gameBoard);
     
 };

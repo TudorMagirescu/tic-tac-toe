@@ -16,6 +16,10 @@ Game::Game(){
     turn = 0;
 }
 
+Board Game::getGameBoard(){
+    return gameBoard;
+}
+
 std::pair <int, int> Game::processMove(int mouse_x, int mouse_y){
     
     //the function returns (-1, -1) if the move is invalid

@@ -11,11 +11,12 @@ class gameWindow{
 
         void clearWindow(sf::Color color);
         void drawLine(sf::Vector2f point0, sf::Vector2f point1, sf::Color lineColor);
-        void drawX(int row, int column);
-        void drawO(int row, int column);
+        void drawX(int row, int column, sf::Color color);
+        void drawO(int row, int column, sf::Color color);
+        void drawGameBoard(sf::Color color);
+
         void display();
 
-        void drawGameBoard();
 
     public:
 

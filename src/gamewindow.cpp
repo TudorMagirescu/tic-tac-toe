@@ -67,7 +67,7 @@ void gameWindow :: display(){
     window.display();
 }
 
-void gameWindow :: drawGameBoard(){ 
+void gameWindow :: drawGameBoard(sf::Color color){ 
     //draw the tic-tac-toe grid
 
     //draw the vertical lines
@@ -82,7 +82,7 @@ void gameWindow :: drawGameBoard(){
         float point1_y = 7 * BOARD_HEIGHT / 8;
         sf::Vector2f point1(point1_x, point1_y);
 
-        drawLine(point0, point1, sf::Color::Black);
+        drawLine(point0, point1, color);
     }
 
     //draw the horizontal lines
@@ -97,11 +97,11 @@ void gameWindow :: drawGameBoard(){
         float point1_y = point0_y;
         sf::Vector2f point1(point1_x, point1_y);
 
-        drawLine(point0, point1, sf::Color::Black);
+        drawLine(point0, point1, color);
     }
 }
 
-void gameWindow :: drawX(int row, int column){
+void gameWindow :: drawX(int row, int column, sf::Color color){
 
     //draws an X at position (row, column)
     //use the PADDING variable to indicate the white space between the X and the borders of the cell
@@ -116,7 +116,7 @@ void gameWindow :: drawX(int row, int column){
     float line0_point1_y = line0_point0_y + BOARD_HEIGHT / 4 - 2 * X_PADDING;
     sf::Vector2f line0_point1(line0_point1_x, line0_point1_y);
 
-    drawLine(line0_point0, line0_point1, sf::Color::Blue);
+    drawLine(line0_point0, line0_point1, color);
 
     //upper right point
     float line1_point0_x = line0_point1_x;
@@ -128,11 +128,11 @@ void gameWindow :: drawX(int row, int column){
     float line1_point1_y = line0_point1_y;
     sf::Vector2f line1_point1(line1_point1_x, line1_point1_y);
 
-    drawLine(line1_point0, line1_point1, sf::Color::Blue);
+    drawLine(line1_point0, line1_point1, color);
 
 }
 
-void gameWindow :: drawO(int row, int column){
+void gameWindow :: drawO(int row, int column, sf::Color color){
     //draws at O at position (row, column)
 
     //the position will be the upper left corner of the square in which the circle is inscribed
@@ -143,7 +143,7 @@ void gameWindow :: drawO(int row, int column){
 
     sf::CircleShape zero(radius);
     zero.setPosition(sf::Vector2f(position_x, position_y));
-    zero.setOutlineColor(sf::Color::Red);
+    zero.setOutlineColor(color);
     zero.setOutlineThickness(1);
 
     window.draw(zero);
@@ -155,10 +155,10 @@ void gameWindow :: drawAll(sf::Color backgroundColor){
     //will take care of all of the drawing
 
     clearWindow(backgroundColor);
-    drawGameBoard();
+    drawGameBoard(sf::Color::Black);
     //debug drawX
-    drawX(2, 2);
+    drawX(2, 2, sf::Color::Blue);
     //debug drawO
-    drawO(2, 1);
+    drawO(2, 1, sf::Color::Red);
     display();
 }

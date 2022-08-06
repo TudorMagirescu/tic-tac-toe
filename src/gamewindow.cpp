@@ -1,4 +1,5 @@
 #include "gamewindow.h"
+#include <iostream> //delete after debugging
 
 bool gameWindow :: isOpen(){
     return window.isOpen();
@@ -142,6 +143,67 @@ void gameWindow :: drawO(int row, int column, sf::Color color){
 
 }
 
+void gameWindow :: drawWinningLine(Board gameBoard){
+    
+    //check if there is any win
+    //in case there is, draw a line that crosses the winning line
+
+    std::pair <std::string, int> winningLine = gameBoard.getWinningLine();
+
+    if(winningLine.first == "NA")
+        return;
+
+    float point0_x, point0_y;
+    float point1_x, point1_y;
+
+    if(winningLine.first == "row"){
+        point0_x = BOARD_WIDTH / 8;
+        point0_y = BOARD_HEIGHT / 8 + winningLine.second * BOARD_HEIGHT / 4 + CELL_HEIGHT / 2;
+
+        point1_x = 7 * BOARD_WIDTH / 8;
+        point1_y = point0_y;
+
+    }
+
+    else if(winningLine.first == "column"){
+        point0_x = BOARD_WIDTH / 8 + winningLine.second * BOARD_WIDTH / 4 + CELL_WIDTH / 2;
+        point0_y = BOARD_HEIGHT / 8;
+
+        point1_x = point0_x;
+        point1_y = 7 * BOARD_HEIGHT / 8;
+    }
+
+    else{
+
+        if(winningLine.second == 0){
+            //main diagonal
+
+            point0_x = BOARD_WIDTH / 8;
+            point0_y = BOARD_HEIGHT / 8;
+
+            point1_x = 7 * BOARD_WIDTH / 8;
+            point1_y = 7 * BOARD_HEIGHT / 8;
+        }
+
+        else{
+            //secondary diagonal
+
+            point0_x = 7 * BOARD_WIDTH / 8;
+            point0_y = BOARD_HEIGHT / 8;
+
+            point1_x = BOARD_WIDTH / 8;
+            point1_y = 7 * BOARD_HEIGHT / 8;
+        }
+        
+    }
+
+    sf::Vector2f point0(point0_x, point0_y);
+    sf::Vector2f point1(point1_x, point1_y);
+
+    drawLine(point0, point1, sf::Color(255, 0, 255, 255));
+
+}
+
 void gameWindow :: drawCurrentFrame(sf::Color backgroundColor, Board gameBoard){
     //the only public function of class gameWindow
     //will take care of all of the drawing
@@ -162,6 +224,8 @@ void gameWindow :: drawCurrentFrame(sf::Color backgroundColor, Board gameBoard){
             else if(playerAtCurrentPosition == Player::X)
                 drawX(row, column, sf::Color::Blue);
         }
+
+    drawWinningLine(gameBoard);
 
     window.display();
 

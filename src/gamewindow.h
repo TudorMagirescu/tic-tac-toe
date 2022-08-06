@@ -10,13 +10,11 @@ class gameWindow{
         int mouse_x;
         int mouse_y;
 
-        void clearWindow(sf::Color color);
         void drawLine(sf::Vector2f point0, sf::Vector2f point1, sf::Color lineColor);
         void drawX(int row, int column, sf::Color color);
         void drawO(int row, int column, sf::Color color);
         void drawGameBoard(sf::Color color);
-
-        void display();
+        void drawWinningLine(Board gameBoard);
 
 
     public:

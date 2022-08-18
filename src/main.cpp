@@ -1,5 +1,3 @@
-#include <SFML/Graphics.hpp>
-#include "constants.h"
 #include "board.h"
 
 int main(){
@@ -16,10 +14,16 @@ int main(){
                 gameWindow.close();
 
             else if(currentEvent.type == sf::Event::MouseButtonPressed){
-                gameBoard.newTurn(currentEvent.mouseButton.x, currentEvent.mouseButton.y);
+                gameBoard.makeMove(currentEvent.mouseButton.x, currentEvent.mouseButton.y);
             }
 
         }
+
+        gameWindow.clear(sf::Color::White);
+
+        gameBoard.drawGameBoard(gameWindow);
+
+        gameWindow.display();
 
     }
 

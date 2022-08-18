@@ -8,6 +8,8 @@ Board :: Board() {
             board[row][column] = Player::NA;
         }
 
+    currentPlayer = Player::X;
+
 }
 
 std::pair <int, int> Board :: processMove(int mouse_x, int mouse_y) {
@@ -41,10 +43,64 @@ std::pair <int, int> Board :: processMove(int mouse_x, int mouse_y) {
 
 }
 
-void Board :: newTurn(int mouse_x, int mouse_y) {
+void Board :: makeMove(int mouse_x, int mouse_y) {
 
     std::pair <int, int> cell = processMove(mouse_x, mouse_y);
-
     std::cout << cell.first << ' ' << cell.second << '\n';
+    
+    if(cell.first != -1){
+
+        //the move is valid
+        board[cell.first][cell.second] = currentPlayer;
+
+    }
+
+    //change player
+    if(currentPlayer == Player::X)
+        currentPlayer = Player::Zero;
+    else
+        currentPlayer = Player::X;
+
+}
+
+void Board :: drawBoardGrid(sf::RenderWindow &gameWindow){
+
+    //draw the tic-tac-toe grid
+
+    //draw the vertical lines
+    for(int lineIndex=0; lineIndex<4; lineIndex++){
+
+        //vertical lines will be placed at 1/8, 3/8, 5/8 and 7/8 of the screen
+        sf::Vector2f point0;
+        point0.x = BOARD_WIDTH / 8 + lineIndex * BOARD_WIDTH / 4;
+        point0.y = BOARD_HEIGHT / 8;
+
+        sf::Vector2f point1;
+        point1.x = point0.x;
+        point1.y = 7 * BOARD_HEIGHT / 8;
+
+        Graphics::drawLine(gameWindow, point0, point1, sf::Color::Black);
+    }
+
+    //draw the horizontal lines
+    for(int lineIndex=0; lineIndex<4; lineIndex++){
+
+        //horizontal lines will be placed at 1/8, 3/8, 5/8 and 7/8 of the screen
+        sf::Vector2f point0;
+        point0.x = BOARD_WIDTH / 8;
+        point0.y = BOARD_HEIGHT / 8 + lineIndex * BOARD_HEIGHT / 4;
+
+        sf::Vector2f point1;
+        point1.x = 7 * BOARD_WIDTH / 8;
+        point1.y = point0.y;
+
+        Graphics::drawLine(gameWindow, point0, point1, sf::Color::Black);
+    }
+
+}
+
+void Board :: drawGameBoard(sf::RenderWindow &gameWindow){
+
+    drawBoardGrid(gameWindow);
 
 }

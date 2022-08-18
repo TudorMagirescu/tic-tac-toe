@@ -1,9 +1,11 @@
 #include <SFML/Graphics.hpp>
 #include "constants.h"
+#include "board.h"
 
 int main(){
 
     sf::RenderWindow gameWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Tic-Tac-Toe", sf::Style::Close);
+    Board gameBoard;
 
     while(gameWindow.isOpen()){
 
@@ -14,7 +16,7 @@ int main(){
                 gameWindow.close();
 
             else if(currentEvent.type == sf::Event::MouseButtonPressed){
-                //do stuff
+                gameBoard.newTurn(currentEvent.mouseButton.x, currentEvent.mouseButton.y);
             }
 
         }

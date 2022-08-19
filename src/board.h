@@ -1,5 +1,4 @@
 #include <utility>
-#include "constants.h"
 #include "graphics.h"
 
 enum class Player{
@@ -12,13 +11,36 @@ enum class Player{
     NA
 };
 
+enum class gameStatus {
+    //the status of the game
+    
+    ONGOING,
+    X_WINS,
+    ZERO_WINS,
+    DRAW
+
+};
+
+enum class lineType {
+
+    NA,
+    ROW,
+    COLUMN,
+    DIAGONAL
+
+};
+
 class Board{
 
     private:
         
         Player board[3][3];
         Player currentPlayer;
+        gameStatus currentGameStatus;
+
         std::pair <int, int> processMove(int mouse_x, int mouse_y);
+        std::pair <lineType, int> getWinningLine();
+        gameStatus updateGameStatus();
 
         void drawBoardGrid(sf::RenderWindow &gameWindow);
 

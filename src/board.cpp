@@ -9,6 +9,8 @@ Board :: Board() {
 
     currentPlayer = Player::X;
 
+    currentGameStatus = gameStatus::ONGOING;
+
 }
 
 std::pair <int, int> Board :: processMove(int mouse_x, int mouse_y) {
@@ -42,6 +44,100 @@ std::pair <int, int> Board :: processMove(int mouse_x, int mouse_y) {
 
 }
 
+std::pair <lineType, int> Board :: getWinningLine(){
+
+    //the function returns {row/column/diagonal/NA, index}
+    //in case the first returned variable is "diagonal": 0 means the main diagonal and 1 the secondary diagonal
+
+    //check if there is any row completed by a player
+    for(int row=0; row<3; row++) {
+
+        if(board[row][0] == board[row][1] && board[row][1] == board[row][2]){
+            if(board[row][0] != Player::NA)
+                return std::make_pair(lineType::ROW, row);
+        }
+
+    }
+
+    //check if there is any column completed by a player
+    for(int column=0; column<3; column++){
+
+        if(board[0][column] == board[1][column] && board[1][column] == board[2][column]){
+            if(board[0][column] != Player::NA)
+                return std::make_pair(lineType::COLUMN, column);
+        }
+
+    }
+
+    //check if the main diagonal is completed by a player
+    if(board[0][0] == board[1][1] && board[1][1] == board[2][2] && board[0][0] != Player::NA)
+        return std::make_pair(lineType::DIAGONAL, 0);
+
+    //check if the secondary diagonal is completed by a player
+    if(board[0][2] == board[1][1] && board[1][1] == board[2][0] && board[0][2] != Player::NA)
+        return std::make_pair(lineType::DIAGONAL, 1);
+
+    return std::make_pair(lineType::NA, -1);
+
+}
+
+ gameStatus Board :: updateGameStatus(){
+
+    std::pair <lineType, int> winningLine = getWinningLine();
+
+    if(winningLine.first == lineType::ROW) {
+
+        if(board[winningLine.second][0] == Player::X)
+            return gameStatus::X_WINS;
+        return gameStatus::ZERO_WINS;
+
+    }
+
+    if(winningLine.first == lineType::COLUMN) {
+        
+        if(board[0][winningLine.second] == Player::X)
+            return gameStatus::X_WINS;
+        return gameStatus::ZERO_WINS;
+
+    }
+
+    if(winningLine.first == lineType::DIAGONAL) {
+
+        if(winningLine.second == 0){
+
+            //main diagonal
+            if(board[0][0] == Player::X)
+                return gameStatus::X_WINS;
+            return gameStatus::ZERO_WINS;
+
+        }
+
+        else {
+
+            //secondary diagonal
+            if(board[0][2] == Player::X)
+                return gameStatus::X_WINS;
+            return gameStatus::ZERO_WINS;
+
+        }
+
+    }
+
+    //check for a draw
+    bool draw = true;
+
+    for (int row = 0; row < 3; row++)
+        for (int column = 0; column < 3; column++)
+            if (board[row][column] == Player::NA)
+                draw = false;
+
+    if(draw == true)
+        return gameStatus::DRAW;
+
+    return gameStatus::ONGOING;
+
+}
+
 void Board :: makeMove(int mouse_x, int mouse_y) {
 
     std::pair <int, int> cell = processMove(mouse_x, mouse_y);
@@ -58,6 +154,8 @@ void Board :: makeMove(int mouse_x, int mouse_y) {
         currentPlayer = Player::Zero;
     else
         currentPlayer = Player::X;
+
+    currentGameStatus = updateGameStatus();
 
 }
 

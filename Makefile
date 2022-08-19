@@ -9,3 +9,5 @@ obj/board.o: src/board.cpp src/board.h src/constants.h src/graphics.h
 	g++ -c -I$(SFML_PATH)/include src/board.cpp -o obj/board.o
 obj/graphics.o: src/graphics.cpp src/graphics.h
 	g++ -c -I$(SFML_PATH)/include src/graphics.cpp -o obj/graphics.o
+clean:
+	rm bin/tic-tac-toe.exe obj/*.o

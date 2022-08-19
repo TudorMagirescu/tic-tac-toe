@@ -1,5 +1,4 @@
 #include "board.h"
-#include <iostream> //remove after debug
 
 Board :: Board() {
 
@@ -46,7 +45,6 @@ std::pair <int, int> Board :: processMove(int mouse_x, int mouse_y) {
 void Board :: makeMove(int mouse_x, int mouse_y) {
 
     std::pair <int, int> cell = processMove(mouse_x, mouse_y);
-    std::cout << cell.first << ' ' << cell.second << '\n';
     
     if(cell.first != -1){
 
@@ -102,5 +100,13 @@ void Board :: drawBoardGrid(sf::RenderWindow &gameWindow){
 void Board :: drawGameBoard(sf::RenderWindow &gameWindow){
 
     drawBoardGrid(gameWindow);
+
+    for (int row = 0; row < 3; row++)
+        for (int column=0; column < 3; column++) {
+            if(board[row][column] == Player::X)
+                Graphics :: drawX(gameWindow, row, column, sf::Color::Blue);
+            else if(board[row][column] == Player::Zero)
+                Graphics :: drawO(gameWindow, row, column, sf::Color::Red);
+        }
 
 }

@@ -43,11 +43,13 @@ class Board{
         gameStatus updateGameStatus();
 
         void drawBoardGrid(sf::RenderWindow &gameWindow);
+        void drawWinningLine(sf::RenderWindow &gameWindow, std::pair <lineType, int> winningLine);
 
     public:
 
         Board();
         void makeMove(int mouse_x, int mouse_y);
+        gameStatus getGameStatus();
 
         void drawGameBoard(sf::RenderWindow &gameWindow);
 

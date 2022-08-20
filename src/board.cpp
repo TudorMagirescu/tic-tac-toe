@@ -140,6 +140,10 @@ std::pair <lineType, int> Board :: getWinningLine(){
 
 void Board :: makeMove(int mouse_x, int mouse_y) {
 
+    //check if the game ended 
+    if(currentGameStatus != gameStatus::ONGOING)
+        return;
+
     std::pair <int, int> cell = processMove(mouse_x, mouse_y);
     
     if(cell.first != -1){
@@ -147,15 +151,15 @@ void Board :: makeMove(int mouse_x, int mouse_y) {
         //the move is valid
         board[cell.first][cell.second] = currentPlayer;
 
+        //change player
+        if(currentPlayer == Player::X)
+            currentPlayer = Player::Zero;
+        else
+            currentPlayer = Player::X;
+
+        currentGameStatus = updateGameStatus();
+
     }
-
-    //change player
-    if(currentPlayer == Player::X)
-        currentPlayer = Player::Zero;
-    else
-        currentPlayer = Player::X;
-
-    currentGameStatus = updateGameStatus();
 
 }
 
@@ -195,6 +199,59 @@ void Board :: drawBoardGrid(sf::RenderWindow &gameWindow){
 
 }
 
+void Board :: drawWinningLine(sf::RenderWindow &gameWindow, std::pair <lineType, int> winningLine){
+
+    float point0_x, point0_y;
+    float point1_x, point1_y;
+
+    if(winningLine.first == lineType::ROW){
+        point0_x = BOARD_WIDTH / 8;
+        point0_y = BOARD_HEIGHT / 8 + winningLine.second * BOARD_HEIGHT / 4 + BOARD_HEIGHT / 8;
+
+        point1_x = 7 * BOARD_WIDTH / 8;
+        point1_y = point0_y;
+
+    }
+
+    else if(winningLine.first == lineType::COLUMN){
+        point0_x = BOARD_WIDTH / 8 + winningLine.second * BOARD_WIDTH / 4 + BOARD_WIDTH / 8;
+        point0_y = BOARD_HEIGHT / 8;
+
+        point1_x = point0_x;
+        point1_y = 7 * BOARD_HEIGHT / 8;
+    }
+
+    else{
+
+        if(winningLine.second == 0){
+            //main diagonal
+
+            point0_x = BOARD_WIDTH / 8;
+            point0_y = BOARD_HEIGHT / 8;
+
+            point1_x = 7 * BOARD_WIDTH / 8;
+            point1_y = 7 * BOARD_HEIGHT / 8;
+        }
+
+        else{
+            //secondary diagonal
+
+            point0_x = 7 * BOARD_WIDTH / 8;
+            point0_y = BOARD_HEIGHT / 8;
+
+            point1_x = BOARD_WIDTH / 8;
+            point1_y = 7 * BOARD_HEIGHT / 8;
+        }
+        
+    }
+
+    sf::Vector2f point0(point0_x, point0_y);
+    sf::Vector2f point1(point1_x, point1_y);
+
+    Graphics :: drawLine(gameWindow, point0, point1, sf::Color(255, 0, 255, 255));
+
+}
+
 void Board :: drawGameBoard(sf::RenderWindow &gameWindow){
 
     drawBoardGrid(gameWindow);
@@ -206,5 +263,9 @@ void Board :: drawGameBoard(sf::RenderWindow &gameWindow){
             else if(board[row][column] == Player::Zero)
                 Graphics :: drawO(gameWindow, row, column, sf::Color::Red);
         }
+
+    //in case one of the players won, draw the winning line
+    if(currentGameStatus == gameStatus::X_WINS || currentGameStatus == gameStatus::ZERO_WINS)
+        drawWinningLine(gameWindow, getWinningLine());
 
 }

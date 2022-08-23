@@ -1,33 +1,29 @@
-#include <iostream>
-#include "game.h"
-#include "gamewindow.h"
+#include "board.h"
 
 int main(){
 
-    gameWindow gameWindow;
-    Game game;
+    sf::RenderWindow gameWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Tic-Tac-Toe", sf::Style::Close);
+    Board gameBoard;
 
     while(gameWindow.isOpen()){
 
-        //process the current events
-        gameWindow.handleEvents();
+        sf::Event currentEvent;
+        while(gameWindow.pollEvent(currentEvent)){
 
-        //check if the game ended
-        if(game.getGameStatus() != gameStatus::ONGOING){
-            gameWindow.drawCurrentFrame(sf::Color::White, game.getGameBoard());
-        }
+            if(currentEvent.type == sf::Event::Closed)
+                gameWindow.close();
 
-        else{
-
-            //display the current state of the board
-            gameWindow.drawCurrentFrame(sf::Color::White, game.getGameBoard());
-
-            //check if there is any new move
-            if(gameWindow.getMouseClicked() == true)
-                game.newTurn(gameWindow.getMouse_x(), gameWindow.getMouse_y());
+            else if(currentEvent.type == sf::Event::MouseButtonPressed){
+                gameBoard.makeMove(currentEvent.mouseButton.x, currentEvent.mouseButton.y);
+            }
 
         }
 
+        gameWindow.clear(sf::Color::White);
+
+        gameBoard.drawGameBoard(gameWindow);
+
+        gameWindow.display();
 
     }
 

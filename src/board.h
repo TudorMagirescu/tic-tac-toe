@@ -1,6 +1,5 @@
-#pragma once
 #include <utility>
-#include <string>
+#include "graphics.h"
 
 enum class Player{
     //Each board cell has one of the following states, depending on which player marked it.
@@ -12,13 +11,45 @@ enum class Player{
     NA
 };
 
+enum class gameStatus {
+    //the status of the game
+    
+    ONGOING,
+    X_WINS,
+    ZERO_WINS,
+    DRAW
+
+};
+
+enum class lineType {
+
+    NA,
+    ROW,
+    COLUMN,
+    DIAGONAL
+
+};
+
 class Board{
+
     private:
+        
         Player board[3][3];
+        Player currentPlayer;
+        gameStatus currentGameStatus;
+
+        std::pair <int, int> processMove(int mouse_x, int mouse_y);
+        std::pair <lineType, int> getWinningLine();
+        gameStatus updateGameStatus();
+
+        void drawBoardGrid(sf::RenderWindow &gameWindow);
+        void drawWinningLine(sf::RenderWindow &gameWindow, std::pair <lineType, int> winningLine);
+
     public:
+
         Board();
-        void update(std::pair <int, int> move, Player currentPlayer);
-        Player getPlayerAtPosition(std::pair <int, int> move);
-        Player getWinner();
-        std::pair <std::string, int> getWinningLine();
+        void makeMove(int mouse_x, int mouse_y);
+
+        void drawGameBoard(sf::RenderWindow &gameWindow);
+
 };

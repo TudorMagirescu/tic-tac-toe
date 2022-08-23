@@ -49,7 +49,6 @@ class Board{
 
         Board();
         void makeMove(int mouse_x, int mouse_y);
-        gameStatus getGameStatus();
 
         void drawGameBoard(sf::RenderWindow &gameWindow);
 

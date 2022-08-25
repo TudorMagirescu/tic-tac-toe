@@ -163,109 +163,20 @@ void Board :: makeMove(int mouse_x, int mouse_y) {
 
 }
 
-void Board :: drawBoardGrid(sf::RenderWindow &gameWindow){
-
-    //draw the tic-tac-toe grid
-
-    //draw the vertical lines
-    for(int lineIndex=0; lineIndex<4; lineIndex++){
-
-        //vertical lines will be placed at 1/8, 3/8, 5/8 and 7/8 of the screen
-        sf::Vector2f point0;
-        point0.x = BOARD_WIDTH / 8 + lineIndex * BOARD_WIDTH / 4;
-        point0.y = BOARD_HEIGHT / 8;
-
-        sf::Vector2f point1;
-        point1.x = point0.x;
-        point1.y = 7 * BOARD_HEIGHT / 8;
-
-        Graphics::drawLine(gameWindow, point0, point1, sf::Color::Black);
-    }
-
-    //draw the horizontal lines
-    for(int lineIndex=0; lineIndex<4; lineIndex++){
-
-        //horizontal lines will be placed at 1/8, 3/8, 5/8 and 7/8 of the screen
-        sf::Vector2f point0;
-        point0.x = BOARD_WIDTH / 8;
-        point0.y = BOARD_HEIGHT / 8 + lineIndex * BOARD_HEIGHT / 4;
-
-        sf::Vector2f point1;
-        point1.x = 7 * BOARD_WIDTH / 8;
-        point1.y = point0.y;
-
-        Graphics::drawLine(gameWindow, point0, point1, sf::Color::Black);
-    }
-
-}
-
-void Board :: drawWinningLine(sf::RenderWindow &gameWindow, std::pair <lineType, int> winningLine){
-
-    float point0_x, point0_y;
-    float point1_x, point1_y;
-
-    if(winningLine.first == lineType::ROW){
-        point0_x = BOARD_WIDTH / 8;
-        point0_y = BOARD_HEIGHT / 8 + winningLine.second * BOARD_HEIGHT / 4 + BOARD_HEIGHT / 8;
-
-        point1_x = 7 * BOARD_WIDTH / 8;
-        point1_y = point0_y;
-
-    }
-
-    else if(winningLine.first == lineType::COLUMN){
-        point0_x = BOARD_WIDTH / 8 + winningLine.second * BOARD_WIDTH / 4 + BOARD_WIDTH / 8;
-        point0_y = BOARD_HEIGHT / 8;
-
-        point1_x = point0_x;
-        point1_y = 7 * BOARD_HEIGHT / 8;
-    }
-
-    else{
-
-        if(winningLine.second == 0){
-            //main diagonal
-
-            point0_x = BOARD_WIDTH / 8;
-            point0_y = BOARD_HEIGHT / 8;
-
-            point1_x = 7 * BOARD_WIDTH / 8;
-            point1_y = 7 * BOARD_HEIGHT / 8;
-        }
-
-        else{
-            //secondary diagonal
-
-            point0_x = 7 * BOARD_WIDTH / 8;
-            point0_y = BOARD_HEIGHT / 8;
-
-            point1_x = BOARD_WIDTH / 8;
-            point1_y = 7 * BOARD_HEIGHT / 8;
-        }
-        
-    }
-
-    sf::Vector2f point0(point0_x, point0_y);
-    sf::Vector2f point1(point1_x, point1_y);
-
-    Graphics :: drawLine(gameWindow, point0, point1, sf::Color(255, 0, 255, 255));
-
-}
-
 void Board :: drawGameBoard(sf::RenderWindow &gameWindow){
 
-    drawBoardGrid(gameWindow);
+    for (int row = 0; row < 3; row ++)
+        for (int column = 0; column < 3; column ++){
 
-    for (int row = 0; row < 3; row++)
-        for (int column=0; column < 3; column++) {
-            if(board[row][column] == Player::X)
-                Graphics :: drawX(gameWindow, row, column, sf::Color::Blue);
+            if(board[row][column] == Player::NA)
+                Graphics :: drawSpriteFromFileInCell(gameWindow, row, column, "img/EmptyCell.png");
+            
             else if(board[row][column] == Player::Zero)
-                Graphics :: drawO(gameWindow, row, column, sf::Color::Red);
-        }
+                Graphics :: drawSpriteFromFileInCell(gameWindow, row, column, "img/O.png");
 
-    //in case one of the players won, draw the winning line
-    if(currentGameStatus == gameStatus::X_WINS || currentGameStatus == gameStatus::ZERO_WINS)
-        drawWinningLine(gameWindow, getWinningLine());
+            else
+                Graphics :: drawSpriteFromFileInCell(gameWindow, row, column, "img/X.png");
+
+        }
 
 }

@@ -42,8 +42,6 @@ class Board{
         std::pair <lineType, int> getWinningLine();
         gameStatus updateGameStatus();
 
-        void drawBoardGrid(sf::RenderWindow &gameWindow);
-        void drawWinningLine(sf::RenderWindow &gameWindow, std::pair <lineType, int> winningLine);
 
     public:
 

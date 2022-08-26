@@ -45,6 +45,7 @@ sf::Vector2f Board :: getPositionFromCellIndex(int row, int column){
 
     spritePosition.x = BOARD_WIDTH / 8 + column * BOARD_WIDTH / 4 - BORDER_SIZE * column;
     spritePosition.y = BOARD_HEIGHT / 8 + row * BOARD_HEIGHT / 4 - BORDER_SIZE * row;
+    //adjacent cells will have their borders overlapping
 
     return spritePosition;
 

@@ -23,6 +23,12 @@ int main(){
 
         gameBoard.draw(gameWindow);
 
+        //debug the draw text function
+        sf::Font font;
+        font.loadFromFile("fonts/arial.ttf");
+        Graphics :: drawText(gameWindow, font, "Hello world!", sf::Color::Black, 30, sf::Vector2f(0, 0));
+        //end of debug
+
         gameWindow.display();
 
     }

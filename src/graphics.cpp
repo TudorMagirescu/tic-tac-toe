@@ -1,5 +1,4 @@
 #include "graphics.h"
-#include <iostream>
 
 void Graphics :: drawSpriteFromFileInCell(sf::RenderWindow &gameWindow, int row, int column, std::string filename){
 
@@ -9,8 +8,7 @@ void Graphics :: drawSpriteFromFileInCell(sf::RenderWindow &gameWindow, int row,
 
     sf::Texture texture;
 
-    if(texture.loadFromFile(filename) == false)
-        std :: cerr << "The file you tried to draw the texture from does not exist!" << '\n';
+    texture.loadFromFile(filename);
 
     sf::Sprite sprite;
     sprite.setTexture(texture);

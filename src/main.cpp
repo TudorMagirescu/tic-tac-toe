@@ -21,7 +21,7 @@ int main(){
 
         gameWindow.clear(sf::Color::White);
 
-        gameBoard.drawGameBoard(gameWindow);
+        gameBoard.draw(gameWindow);
 
         gameWindow.display();
 

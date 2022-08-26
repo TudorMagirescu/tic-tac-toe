@@ -1,15 +1,6 @@
-#include <utility>
+#include "cell.h"
 #include "graphics.h"
-
-enum class Player{
-    //Each board cell has one of the following states, depending on which player marked it.
-    //X and Zero are the two players
-    //NA means that the cell is unoccupied
-    
-    X,
-    Zero,
-    NA
-};
+#include <utility>
 
 enum class gameStatus {
     //the status of the game
@@ -21,33 +12,26 @@ enum class gameStatus {
 
 };
 
-enum class lineType {
-
-    NA,
-    ROW,
-    COLUMN,
-    DIAGONAL
-
-};
-
 class Board{
 
     private:
         
-        Player board[3][3];
+        Cell board[3][3];
         Player currentPlayer;
         gameStatus currentGameStatus;
 
-        std::pair <int, int> processMove(int mouse_x, int mouse_y);
-        std::pair <lineType, int> getWinningLine();
-        gameStatus updateGameStatus();
+        sf::Clock blinkingClock;
 
+        std::pair <int, int> processMove(int mouse_x, int mouse_y);
+        void checkForWin();
+
+        void handleBlinking(sf::RenderWindow &gameWindow, int row, int column);
 
     public:
 
         Board();
         void makeMove(int mouse_x, int mouse_y);
 
-        void drawGameBoard(sf::RenderWindow &gameWindow);
+        void draw(sf::RenderWindow &gameWindow);
 
 };

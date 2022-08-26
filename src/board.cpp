@@ -2,11 +2,6 @@
 
 Board :: Board() {
 
-    for (int row = 0; row < 3; row++)
-        for (int column = 0; column < 3; column++) {
-            board[row][column] = Player::NA;
-        }
-
     currentPlayer = Player::X;
 
     currentGameStatus = gameStatus::ONGOING;
@@ -36,7 +31,7 @@ std::pair <int, int> Board :: processMove(int mouse_x, int mouse_y) {
     row = (mouse_y - BOARD_HEIGHT / 8) / (BOARD_HEIGHT / 4);
 
     //if the cell is occupied the move is also invalid
-    if(board[row][column] != Player::NA)
+    if(board[row][column].player != Player::NA)
         return {-1, -1};
 
     return {row, column};
@@ -44,97 +39,92 @@ std::pair <int, int> Board :: processMove(int mouse_x, int mouse_y) {
 
 }
 
-std::pair <lineType, int> Board :: getWinningLine(){
-
-    //the function returns {row/column/diagonal/NA, index}
-    //in case the first returned variable is "diagonal": 0 means the main diagonal and 1 the secondary diagonal
+void Board :: checkForWin(){
 
     //check if there is any row completed by a player
-    for(int row=0; row<3; row++) {
+    for(int row = 0; row < 3; row ++) {
 
-        if(board[row][0] == board[row][1] && board[row][1] == board[row][2]){
-            if(board[row][0] != Player::NA)
-                return std::make_pair(lineType::ROW, row);
+        if(board[row][0].player == board[row][1].player && board[row][1].player == board[row][2].player){
+            if(board[row][0].player != Player::NA){
+
+                for(int column = 0; column < 3; column ++)
+                    board[row][column].isBlinking = true;
+
+                if(board[row][0].player == Player::X)
+                    currentGameStatus = gameStatus::X_WINS;
+                else
+                    currentGameStatus = gameStatus::ZERO_WINS;
+
+                return;
+
+            }
         }
 
     }
 
     //check if there is any column completed by a player
-    for(int column=0; column<3; column++){
+    for(int column = 0; column < 3; column ++) {
 
-        if(board[0][column] == board[1][column] && board[1][column] == board[2][column]){
-            if(board[0][column] != Player::NA)
-                return std::make_pair(lineType::COLUMN, column);
+        if(board[0][column].player == board[1][column].player && board[1][column].player == board[2][column].player){
+            if(board[0][column].player != Player::NA){
+
+                for(int row = 0; row < 3; row ++)
+                    board[row][column].isBlinking = true;
+
+                if(board[0][column].player == Player::X)
+                    currentGameStatus = gameStatus::X_WINS;
+                else
+                    currentGameStatus = gameStatus::ZERO_WINS;
+
+                return;
+
+            }
         }
 
     }
 
-    //check if the main diagonal is completed by a player
-    if(board[0][0] == board[1][1] && board[1][1] == board[2][2] && board[0][0] != Player::NA)
-        return std::make_pair(lineType::DIAGONAL, 0);
+    //check if the main diagonal is completed by any player
+    if(board[0][0].player == board[1][1].player && board[1][1].player == board[2][2].player)
+        if(board[0][0].player != Player::NA){
 
-    //check if the secondary diagonal is completed by a player
-    if(board[0][2] == board[1][1] && board[1][1] == board[2][0] && board[0][2] != Player::NA)
-        return std::make_pair(lineType::DIAGONAL, 1);
+            for(int index = 0; index < 3; index ++)
+                board[index][index].isBlinking = true;
 
-    return std::make_pair(lineType::NA, -1);
+            if(board[0][0].player == Player::X)
+                currentGameStatus = gameStatus::X_WINS;
+            else
+                currentGameStatus = gameStatus::ZERO_WINS;
 
-}
-
- gameStatus Board :: updateGameStatus(){
-
-    std::pair <lineType, int> winningLine = getWinningLine();
-
-    if(winningLine.first == lineType::ROW) {
-
-        if(board[winningLine.second][0] == Player::X)
-            return gameStatus::X_WINS;
-        return gameStatus::ZERO_WINS;
-
-    }
-
-    if(winningLine.first == lineType::COLUMN) {
-        
-        if(board[0][winningLine.second] == Player::X)
-            return gameStatus::X_WINS;
-        return gameStatus::ZERO_WINS;
-
-    }
-
-    if(winningLine.first == lineType::DIAGONAL) {
-
-        if(winningLine.second == 0){
-
-            //main diagonal
-            if(board[0][0] == Player::X)
-                return gameStatus::X_WINS;
-            return gameStatus::ZERO_WINS;
+            return;    
 
         }
 
-        else {
+    //check if the secondary diagonal is completed by any player
+    if(board[0][2].player == board[1][1].player && board[1][1].player == board[2][0].player)
+        if(board[0][2].player != Player::NA){
 
-            //secondary diagonal
-            if(board[0][2] == Player::X)
-                return gameStatus::X_WINS;
-            return gameStatus::ZERO_WINS;
+            for(int index = 0; index < 3; index ++)
+                board[index][2 - index].isBlinking = true;
+
+            if(board[0][2].player == Player::X)
+                currentGameStatus = gameStatus::X_WINS;
+            else
+                currentGameStatus = gameStatus::ZERO_WINS;
+
+            return;    
 
         }
-
-    }
 
     //check for a draw
-    bool draw = true;
+    for(int row = 0; row < 3; row ++)
+        for(int column = 0; column < 3; column ++)
+            if(board[row][column].player == Player::NA){
+                //there can't be a draw since there is an unoccupied cell
+                currentGameStatus = gameStatus::ONGOING;
+                return;
+            }
 
-    for (int row = 0; row < 3; row++)
-        for (int column = 0; column < 3; column++)
-            if (board[row][column] == Player::NA)
-                draw = false;
-
-    if(draw == true)
-        return gameStatus::DRAW;
-
-    return gameStatus::ONGOING;
+    currentGameStatus = gameStatus::DRAW;
 
 }
 
@@ -149,7 +139,7 @@ void Board :: makeMove(int mouse_x, int mouse_y) {
     if(cell.first != -1){
 
         //the move is valid
-        board[cell.first][cell.second] = currentPlayer;
+        board[cell.first][cell.second].player = currentPlayer;
 
         //change player
         if(currentPlayer == Player::X)
@@ -157,25 +147,53 @@ void Board :: makeMove(int mouse_x, int mouse_y) {
         else
             currentPlayer = Player::X;
 
-        currentGameStatus = updateGameStatus();
+        checkForWin();
 
     }
 
 }
 
-void Board :: drawGameBoard(sf::RenderWindow &gameWindow){
+void Board :: handleBlinking(sf::RenderWindow &gameWindow, int row, int column){
+
+    //the cells which are part of the winning line will blink every second after the game has ended
+    float blinkingTimeElapsed = blinkingClock.getElapsedTime().asSeconds();
+
+    if(blinkingTimeElapsed > 2.0f)
+        blinkingClock.restart();
+
+    else if(blinkingTimeElapsed < 1.0f){
+        //the first second this cell will appear as marked
+        std::string filename = "img/O.png";
+        if(board[row][column].player == Player::X)
+            filename = "img/X.png";
+
+        Graphics :: drawSpriteFromFileInCell(gameWindow, row, column, filename);
+        
+    }
+
+    else{
+        //the next second this cell will appear as unmarked
+        Graphics :: drawSpriteFromFileInCell(gameWindow, row, column, "img/EmptyCell.png");
+    }
+
+}
+
+void Board :: draw(sf::RenderWindow &gameWindow){
 
     for (int row = 0; row < 3; row ++)
         for (int column = 0; column < 3; column ++){
 
-            if(board[row][column] == Player::NA)
+            if(board[row][column].player == Player::NA)
                 Graphics :: drawSpriteFromFileInCell(gameWindow, row, column, "img/EmptyCell.png");
             
-            else if(board[row][column] == Player::Zero)
+            else if(board[row][column].player == Player::Zero)
                 Graphics :: drawSpriteFromFileInCell(gameWindow, row, column, "img/O.png");
-
+                
             else
                 Graphics :: drawSpriteFromFileInCell(gameWindow, row, column, "img/X.png");
+
+            if(board[row][column].isBlinking)
+                handleBlinking(gameWindow, row, column);
 
         }
 

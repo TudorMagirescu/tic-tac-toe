@@ -39,6 +39,17 @@ std::pair <int, int> Board :: processMove(int mouse_x, int mouse_y) {
 
 }
 
+sf::Vector2f Board :: getPositionFromCellIndex(int row, int column){
+
+    sf::Vector2f spritePosition;
+
+    spritePosition.x = BOARD_WIDTH / 8 + column * BOARD_WIDTH / 4 - BORDER_SIZE * column;
+    spritePosition.y = BOARD_HEIGHT / 8 + row * BOARD_HEIGHT / 4 - BORDER_SIZE * row;
+
+    return spritePosition;
+
+}
+
 void Board :: checkForWin(){
 
     //check if there is any row completed by a player
@@ -167,13 +178,13 @@ void Board :: handleBlinking(sf::RenderWindow &gameWindow, int row, int column){
         if(board[row][column].player == Player::X)
             filename = "img/X.png";
 
-        Graphics :: drawSpriteFromFileInCell(gameWindow, row, column, filename);
+        Graphics :: drawSpriteFromFile(gameWindow, getPositionFromCellIndex(row, column), filename);
         
     }
 
     else{
         //the next second this cell will appear as unmarked
-        Graphics :: drawSpriteFromFileInCell(gameWindow, row, column, "img/EmptyCell.png");
+        Graphics :: drawSpriteFromFile(gameWindow, getPositionFromCellIndex(row, column), "img/EmptyCell.png");
     }
 
 }
@@ -184,13 +195,13 @@ void Board :: draw(sf::RenderWindow &gameWindow){
         for (int column = 0; column < 3; column ++){
 
             if(board[row][column].player == Player::NA)
-                Graphics :: drawSpriteFromFileInCell(gameWindow, row, column, "img/EmptyCell.png");
+                Graphics :: drawSpriteFromFile(gameWindow, getPositionFromCellIndex(row, column), "img/EmptyCell.png");
             
             else if(board[row][column].player == Player::Zero)
-                Graphics :: drawSpriteFromFileInCell(gameWindow, row, column, "img/O.png");
+                Graphics :: drawSpriteFromFile(gameWindow, getPositionFromCellIndex(row, column), "img/O.png");
                 
             else
-                Graphics :: drawSpriteFromFileInCell(gameWindow, row, column, "img/X.png");
+                Graphics :: drawSpriteFromFile(gameWindow, getPositionFromCellIndex(row, column), "img/X.png");
 
             if(board[row][column].isBlinking)
                 handleBlinking(gameWindow, row, column);

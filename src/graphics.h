@@ -4,6 +4,6 @@
 
 namespace Graphics {
 
-    void drawSpriteFromFileInCell(sf::RenderWindow &gameWindow, int row, int column, std::string filename);
+    void drawSpriteFromFile(sf::RenderWindow &gameWindow, sf::Vector2f position, std::string filename);
 
 };

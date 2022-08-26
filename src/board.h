@@ -25,6 +25,8 @@ class Board{
         std::pair <int, int> processMove(int mouse_x, int mouse_y);
         void checkForWin();
 
+        sf::Vector2f getPositionFromCellIndex(int row, int column);
+
         void handleBlinking(sf::RenderWindow &gameWindow, int row, int column);
 
     public:

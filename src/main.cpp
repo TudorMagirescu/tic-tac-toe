@@ -1,9 +1,11 @@
 #include "board.h"
+#include "statusbar.h"
 
 int main(){
 
     sf::RenderWindow gameWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Tic-Tac-Toe", sf::Style::Close);
     Board gameBoard;
+    statusBar statusBar;
 
     while(gameWindow.isOpen()){
 
@@ -22,12 +24,7 @@ int main(){
         gameWindow.clear(sf::Color::White);
 
         gameBoard.draw(gameWindow);
-
-        //debug the draw text function
-        sf::Font font;
-        font.loadFromFile("fonts/arial.ttf");
-        Graphics :: drawText(gameWindow, font, "Hello world!", sf::Color::Black, 30, sf::Vector2f(0, 0));
-        //end of debug
+        statusBar.draw(gameWindow);
 
         gameWindow.display();
 

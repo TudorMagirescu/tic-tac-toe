@@ -14,6 +14,23 @@ void Graphics :: drawSpriteFromFile(sf::RenderWindow &gameWindow, sf::Vector2f p
 
 }
 
+float Graphics :: getPositionToCenterText(sf::Font font, std::string string, int size){
+
+    sf::Text text;
+
+    text.setFont(font);
+    
+    text.setString(string);
+    text.setCharacterSize(size);
+
+    //get the width of the rectangle surrounding the text
+    sf::FloatRect surroundingRect = text.getLocalBounds();
+    float width = surroundingRect.width;
+
+    return ((float)WINDOW_WIDTH - 1.0 - width) / 2.0;
+
+}
+
 void Graphics :: drawText(sf::RenderWindow &gameWindow, sf::Font font, std::string string, sf::Color color, int size, sf::Vector2f position){
 
     sf::Text text;

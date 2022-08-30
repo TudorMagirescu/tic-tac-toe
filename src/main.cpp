@@ -15,9 +15,8 @@ int main(){
             if(currentEvent.type == sf::Event::Closed)
                 gameWindow.close();
 
-            else if(currentEvent.type == sf::Event::MouseButtonPressed){
+            else if(currentEvent.type == sf::Event::MouseButtonPressed)
                 gameBoard.makeMove(currentEvent.mouseButton.x, currentEvent.mouseButton.y);
-            }
 
         }
 

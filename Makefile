@@ -16,7 +16,7 @@ obj/cell.o: src/cell.cpp src/cell.h
 obj/graphics.o: src/graphics.cpp src/graphics.h src/constants.h
 	g++ -c -I$(SFML_PATH)/include src/graphics.cpp -o obj/graphics.o
 
-obj/statusbar.o: src/statusbar.cpp src/statusbar.h obj/graphics.o
+obj/statusbar.o: src/statusbar.cpp src/statusbar.h obj/graphics.o obj/board.o
 	g++ -c -I$(SFML_PATH)/include src/statusbar.cpp -o obj/statusbar.o
 
 clean:

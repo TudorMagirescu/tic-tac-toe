@@ -1,4 +1,3 @@
-#include "board.h"
 #include "statusbar.h"
 
 int main(){
@@ -23,7 +22,7 @@ int main(){
         gameWindow.clear(sf::Color::White);
 
         gameBoard.draw(gameWindow);
-        statusBar.draw(gameWindow);
+        statusBar.draw(gameWindow, gameBoard.getCurrentPlayer(), gameBoard.getCurrentGameStatus());
 
         gameWindow.display();
 

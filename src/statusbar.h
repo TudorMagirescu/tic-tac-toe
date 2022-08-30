@@ -1,4 +1,5 @@
 #include "graphics.h"
+#include "board.h"
 
 class statusBar{
 
@@ -9,10 +10,12 @@ class statusBar{
         sf::Font font;
         sf::Color color;
 
+        void updateStatusBar(Player currentPlayer, gameStatus currentGameStatus);
+
     public:
 
         statusBar();
 
-        void draw(sf::RenderWindow &gameWindow);
+        void draw(sf::RenderWindow &gameWindow, Player currentPlayer, gameStatus currentGameStatus);
 
 };

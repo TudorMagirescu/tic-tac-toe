@@ -210,3 +210,11 @@ void Board :: draw(sf::RenderWindow &gameWindow){
         }
 
 }
+
+Player Board :: getCurrentPlayer(){
+    return currentPlayer;
+}
+
+gameStatus Board :: getCurrentGameStatus(){
+    return currentGameStatus;
+}

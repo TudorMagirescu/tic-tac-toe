@@ -1,4 +1,5 @@
 #include "statusbar.h"
+#include "button.h"
 #include <iostream>
 
 int main(){
@@ -6,6 +7,16 @@ int main(){
     sf::RenderWindow gameWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Tic-Tac-Toe", sf::Style::Close);
     Board gameBoard;
     statusBar statusBar;
+
+    //debug
+    float RetryX = (BOARD_WIDTH - 2 * 200) / 3;
+    Button Retry(sf::Vector2f(200, 70), "img/RetryButton.png");
+    Retry.setPosition(sf::Vector2f(RetryX, 740));
+
+    float MainMenuX = 200 + 2.0 * RetryX;
+    Button MainMenu(sf::Vector2f(200, 70), "img/RetryButton.png");
+    MainMenu.setPosition(sf::Vector2f(MainMenuX, 740));
+    //end of debug
 
     while(gameWindow.isOpen()){
 
@@ -17,7 +28,13 @@ int main(){
 
             else if(currentEvent.type == sf::Event::MouseButtonPressed){
                 gameBoard.makeMove(currentEvent.mouseButton.x, currentEvent.mouseButton.y);
-                std::cout << currentEvent.mouseButton.x << ' ' << currentEvent.mouseButton.y << '\n';
+
+                //debug
+                if(Retry.isClicked(currentEvent.mouseButton.x, currentEvent.mouseButton.y))
+                    std::cout << "Retry!" << '\n';
+                if(MainMenu.isClicked(currentEvent.mouseButton.x, currentEvent.mouseButton.y))
+                    std::cout << "Main Menu!" << '\n';
+                //end of debug
             }
 
         }
@@ -28,23 +45,9 @@ int main(){
         statusBar.draw(gameWindow, gameBoard.getCurrentPlayer(), gameBoard.getCurrentGameStatus());
 
         //debug draw button
-        Graphics :: drawSpriteFromFile(gameWindow, sf::Vector2f(133, 740), "img/RetryButton.png");
         
-        /*sf::RectangleShape rect1(sf::Vector2f(200, 70));
-        rect1.setOutlineThickness(3);
-        rect1.setPosition(sf::Vector2f(133, 740));
-        rect1.setFillColor(sf::Color::White);
-        rect1.setOutlineColor(sf::Color::Black);
-        gameWindow.draw(rect1);*/
-
-        Graphics :: drawSpriteFromFile(gameWindow, sf::Vector2f(466, 740), "img/RetryButton.png");
-
-        /*sf::RectangleShape rect2(sf::Vector2f(200, 70));
-        rect2.setOutlineThickness(3);
-        rect2.setPosition(sf::Vector2f(466, 740));
-        rect2.setFillColor(sf::Color::White);
-        rect2.setOutlineColor(sf::Color::Black);
-        gameWindow.draw(rect2);*/
+        Retry.draw(gameWindow);
+        MainMenu.draw(gameWindow);
         
         //end of debug
 

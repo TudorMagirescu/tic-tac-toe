@@ -4,7 +4,7 @@ SFML_LIBS = -lsfml-graphics -lsfml-window -lsfml-system
 bin/tic-tac-toe: obj/main.o obj/board.o obj/graphics.o obj/cell.o obj/statusbar.o
 	g++ obj/main.o obj/board.o obj/graphics.o obj/cell.o obj/statusbar.o -o bin/tic-tac-toe -L$(SFML_PATH)/lib $(SFML_LIBS)
 
-obj/main.o: src/main.cpp obj/board.o obj/statusbar.o
+obj/main.o: src/main.cpp obj/statusbar.o
 	g++ -c -I$(SFML_PATH)/include src/main.cpp -o obj/main.o
 
 obj/board.o: src/board.cpp src/board.h obj/graphics.o obj/cell.o 

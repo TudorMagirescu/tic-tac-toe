@@ -26,11 +26,11 @@ float Graphics :: getPositionToCenterTextVertically(sf::Font font, std::string s
     sf::FloatRect surroundingRect = text.getLocalBounds();
     float height = surroundingRect.height;
 
-    return (bottom - top - 1.0 - height) / 2.0;
+    return top + (bottom - top + 1.0 - height) / 2.0;
 
 }
 
-float Graphics :: getPositionToCenterTextHorizontally(sf::Font font, std::string string, int size){
+float Graphics :: getPositionToCenterTextHorizontally(sf::Font font, std::string string, int size, float left, float right){
 
     sf::Text text;
 
@@ -42,7 +42,7 @@ float Graphics :: getPositionToCenterTextHorizontally(sf::Font font, std::string
     sf::FloatRect surroundingRect = text.getLocalBounds();
     float width = surroundingRect.width;
 
-    return ((float)WINDOW_WIDTH - 1.0 - width) / 2.0;
+    return left + (right - left + 1.0 - width) / 2.0;
 
 }
 

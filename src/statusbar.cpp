@@ -47,8 +47,8 @@ void statusBar :: draw(sf::RenderWindow &gameWindow, Player currentPlayer, gameS
 
     updateStatusBar(currentPlayer, currentGameStatus);
     sf::Vector2f position;
-    position.x = Graphics :: getPositionToCenterTextHorizontally(font, displayedMessage, characterSize);
-    position.y = Graphics :: getPositionToCenterTextVertically(font, displayedMessage, characterSize, 0, BOARD_HEIGHT / 8);
+    position.x = Graphics :: getPositionToCenterTextHorizontally(font, displayedMessage, characterSize, 0, WINDOW_WIDTH - 1);
+    position.y = Graphics :: getPositionToCenterTextVertically(font, displayedMessage, characterSize, 0, BOARD_HEIGHT / 8 - 1);
 
     Graphics :: drawText(gameWindow, font, displayedMessage, color, characterSize, position);
 

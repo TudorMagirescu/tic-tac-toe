@@ -1,11 +1,19 @@
 #include "board.h"
 
 Board :: Board() {
+    reset();
+}
 
+void Board :: reset(){
     currentPlayer = Player::X;
 
     currentGameStatus = gameStatus::ONGOING;
 
+    for(int row = 0; row < 3; row ++)
+        for(int column = 0; column < 3; column ++){
+            board[row][column].player = Player::NA;
+            board[row][column].isBlinking = false;
+        }
 }
 
 std::pair <int, int> Board :: processMove(int mouse_x, int mouse_y) {

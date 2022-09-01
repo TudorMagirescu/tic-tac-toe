@@ -37,6 +37,8 @@ class Board{
         Player getCurrentPlayer();
         gameStatus getCurrentGameStatus();
 
+        void reset();
+
         void draw(sf::RenderWindow &gameWindow);
 
 };

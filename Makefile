@@ -1,10 +1,10 @@
 SFML_PATH = ./sfml
 SFML_LIBS = -lsfml-graphics -lsfml-window -lsfml-system
 
-bin/tic-tac-toe: obj/main.o obj/board.o obj/graphics.o obj/cell.o obj/statusbar.o obj/button.o
-	g++ obj/main.o obj/board.o obj/graphics.o obj/cell.o obj/statusbar.o obj/button.o -o bin/tic-tac-toe -L$(SFML_PATH)/lib $(SFML_LIBS)
+bin/tic-tac-toe: obj/main.o obj/board.o obj/graphics.o obj/cell.o obj/statusbar.o obj/button.o obj/navbuttons.o
+	g++ obj/main.o obj/board.o obj/graphics.o obj/cell.o obj/statusbar.o obj/button.o obj/navbuttons.o -o bin/tic-tac-toe -L$(SFML_PATH)/lib $(SFML_LIBS)
 
-obj/main.o: src/main.cpp obj/statusbar.o obj/button.o
+obj/main.o: src/main.cpp obj/statusbar.o obj/navbuttons.o
 	g++ -c -I$(SFML_PATH)/include src/main.cpp -o obj/main.o
 
 obj/board.o: src/board.cpp src/board.h obj/graphics.o obj/cell.o 
@@ -21,6 +21,9 @@ obj/statusbar.o: src/statusbar.cpp src/statusbar.h obj/graphics.o obj/board.o
 
 obj/button.o: src/button.cpp src/button.h obj/graphics.o
 	g++ -c -I$(SFML_PATH)/include src/button.cpp -o obj/button.o
+
+obj/navbuttons.o: src/navbuttons.cpp src/navbuttons.h obj/button.o
+	g++ -c -I$(SFML_PATH)/include src/navbuttons.cpp -o obj/navbuttons.o
 
 clean:
 	rm bin/tic-tac-toe.exe obj/*.o
